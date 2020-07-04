@@ -4,6 +4,7 @@ import com.twopythons.forum.model.entity.enums.Role;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Data
 @Entity
@@ -20,4 +21,10 @@ public class User {
     private Role role;
     private byte[] picture;
 
+    @OneToMany(mappedBy = "user")
+    private Collection<Theme> themes;
+    @OneToMany(mappedBy = "author")
+    private Collection<Message> sentMessages;
+    @OneToMany(mappedBy = "repliedTo")
+    private  Collection<Message> receivedMessages;
 }
