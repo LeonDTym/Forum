@@ -21,6 +21,6 @@ public class UserRepositoryTest {
 
     @Test
     public void testRoleOfUserIsAdmin() {
-        Assert.assertEquals("Admin", userRepository.findById(1l).get().getRole().name());
+        Assert.assertEquals("Admin", userRepository.findById(1L).get().getRole().name());
     }
 }
