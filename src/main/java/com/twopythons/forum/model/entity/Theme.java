@@ -13,6 +13,7 @@ import java.util.Collection;
 public class Theme {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id")

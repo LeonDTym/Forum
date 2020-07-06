@@ -11,6 +11,7 @@ import java.util.Calendar;
 public class Message {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "theme_id")

@@ -4,10 +4,12 @@ import com.twopythons.forum.model.entity.User;
 import com.twopythons.forum.model.repository.UserRepository;
 import com.twopythons.forum.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
@@ -23,17 +25,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUserById(Long id) {
+    public void changeUser(User user) {
+        userRepository.save(user);
+    }
 
+    @Override
+    public void deleteUserById(Long id) {
+        getUserById(id).ifPresent(user -> userRepository.delete(user));
     }
 
     @Override
     public Optional<User> getUserById(Long id) {
-        return Optional.empty();
+        return userRepository.findById(id);
     }
 
     @Override
     public List<User> getAllUsers() {
-        return null;
+        return userRepository.findAll();
     }
 }
