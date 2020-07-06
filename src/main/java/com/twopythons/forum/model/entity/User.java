@@ -13,7 +13,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String login;
     private String password;
     private String email;
@@ -27,4 +27,5 @@ public class User {
     private Collection<Message> sentMessages;
     @OneToMany(mappedBy = "repliedTo")
     private  Collection<Message> receivedMessages;
+
 }

@@ -13,7 +13,7 @@ import java.util.Collection;
 public class Theme {
 
     @Id
-    private long id;
+    private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -31,4 +31,5 @@ public class Theme {
                 joinColumns = @JoinColumn(name = "theme_id"),
                 inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Collection<Tag> tags;
+
 }

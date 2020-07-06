@@ -12,9 +12,12 @@ import java.util.Collection;
 @Entity
 @Table(name = "tag")
 public class Tag {
+
     @Id
-    private long id;
+    private Long id;
     private String name;
+
     @ManyToMany(mappedBy = "tags")
     Collection<Theme> themes;
+
 }

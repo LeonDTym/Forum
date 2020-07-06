@@ -9,8 +9,9 @@ import java.util.Calendar;
 @Entity
 @Table(name = "message")
 public class Message {
+
     @Id
-    private long id;
+    private Long id;
     @ManyToOne
     @JoinColumn(name = "theme_id")
     private Theme theme;
@@ -23,4 +24,5 @@ public class Message {
     private Calendar date;
     private int rating;
     private String text;
+
 }
