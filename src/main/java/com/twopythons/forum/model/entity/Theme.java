@@ -10,11 +10,8 @@ import java.util.Collection;
 @Data
 @Entity
 @Table(name = "theme")
-public class Theme {
+public class Theme extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

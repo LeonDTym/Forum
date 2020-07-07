@@ -9,11 +9,8 @@ import java.util.Collection;
 @Data
 @Entity
 @Table(name = "user")
-public class User {
+public class User extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String login;
     private String password;
     private String email;
