@@ -1,6 +1,5 @@
 package com.twopythons.forum.model.service.impl;
 
-import com.twopythons.forum.exceptions.ItemAlreadyExistsException;
 import com.twopythons.forum.model.entity.AbstractEntity;
 import com.twopythons.forum.model.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,19 +18,9 @@ public class ServiceCommonImpl<E extends AbstractEntity, R extends JpaRepository
     }
 
     @Override
-    public void create(E item) throws ItemAlreadyExistsException {
-        Optional<E> foundItem = getById(item.getId());
-        if (foundItem.isPresent()) {
-            throw  new ItemAlreadyExistsException("Item with id = " + item.getId() + " already exists!");
-        }
-        else {
+    public void create(E item) {
             repository.save(item);
-        }
-    }
 
-    @Override
-    public void deleteById(Long id) {
-        getById(id).ifPresent(item -> repository.delete(item));
     }
 
     @Override

@@ -17,12 +17,14 @@ public class User extends AbstractEntity {
     @Enumerated(EnumType.ORDINAL)
     private Role role;
     private byte[] picture;
-
+    @Column(name = "is_banned")
+    private Boolean isBanned = false;
     @OneToMany(mappedBy = "user")
     private Collection<Theme> themes;
     @OneToMany(mappedBy = "author")
     private Collection<Message> sentMessages;
     @OneToMany(mappedBy = "repliedTo")
     private  Collection<Message> receivedMessages;
+
 
 }

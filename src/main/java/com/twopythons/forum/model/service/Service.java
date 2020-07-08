@@ -8,7 +8,6 @@ import java.util.Optional;
 
 public interface Service<E extends AbstractEntity> {
     void create(E item) throws ItemAlreadyExistsException;
-    void deleteById(Long id);
     Optional<E> getById(Long id);
     List<E> getAll();
 }
