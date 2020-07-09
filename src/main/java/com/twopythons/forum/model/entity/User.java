@@ -23,8 +23,5 @@ public class User extends AbstractEntity {
     private Collection<Theme> themes;
     @OneToMany(mappedBy = "author")
     private Collection<Message> sentMessages;
-    @OneToMany(mappedBy = "repliedTo")
-    private  Collection<Message> receivedMessages;
-
 
 }

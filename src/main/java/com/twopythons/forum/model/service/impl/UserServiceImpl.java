@@ -33,4 +33,5 @@ public class UserServiceImpl extends ServiceCommonImpl<User, UserRepository> {
     public void unbanById(Long id) {
         getById(id).ifPresent(user -> user.setIsBanned(false));
     }
+
 }

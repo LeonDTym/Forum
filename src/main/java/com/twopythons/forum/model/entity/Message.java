@@ -2,11 +2,9 @@ package com.twopythons.forum.model.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Calendar;
+import java.util.Collection;
 
 @Data
 @Entity
@@ -20,8 +18,10 @@ public class Message extends AbstractEntity {
     @JoinColumn(name = "user_id")
     private User author;
     @ManyToOne
-    @JoinColumn(name = "replied_user_id")
-    private User repliedTo;
+    @JoinColumn(name = "replied_message_id")
+    private Message repliedTo;
+    @OneToMany
+    private Collection<Message> repliedBy;
     private Calendar date;
     private int rating;
     private String text;

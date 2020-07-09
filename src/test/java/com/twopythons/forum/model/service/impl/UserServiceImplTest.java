@@ -62,4 +62,5 @@ public class UserServiceImplTest {
         Assert.assertEquals(newRole, user.getRole());
 
     }
+
 }
