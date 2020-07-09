@@ -35,4 +35,14 @@ class ThemeServiceImplTest {
         Assert.assertEquals("python", theme.getTitle());
 
     }
+
+    @Test
+    void addTag() {
+        String tagTitle = "Programming";
+        themeService.getById(1L).ifPresent(theme -> {
+            themeService.addTag(theme, tagTitle);
+            System.out.println(theme.getTags().size());
+            Assert.assertTrue(theme.getTags().stream().anyMatch(tag -> tag.getName().equals(tagTitle)));
+        });
+    }
 }

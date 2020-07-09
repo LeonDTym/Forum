@@ -1,5 +1,6 @@
 package com.twopythons.forum.model.service.impl;
 
+import com.twopythons.forum.model.entity.Tag;
 import com.twopythons.forum.model.entity.Theme;
 import com.twopythons.forum.model.entity.enums.ThemeState;
 import com.twopythons.forum.model.repository.ThemeRepository;
@@ -11,9 +12,15 @@ import java.util.List;
 
 @Service
 public class ThemeServiceImpl extends ServiceCommonImpl<Theme, ThemeRepository> {
+
+    private TagServiceImpl tagService;
+
     @Autowired
-    public ThemeServiceImpl(ThemeRepository repository) {
+    public ThemeServiceImpl(ThemeRepository repository, TagServiceImpl tagService) {
+
         super(repository);
+        this.tagService = tagService;
+
     }
 
     @Transactional
@@ -23,9 +30,16 @@ public class ThemeServiceImpl extends ServiceCommonImpl<Theme, ThemeRepository> 
 
     }
 
-    public List<Theme> getAllThemesByUserId(Long id) {
+    public void addTag(Theme theme, String tagTitle) {
 
-        return repository.getAllByUserId(id);
+        Tag tag = tagService.getTagByName(tagTitle);
+        theme.getTags().add(tag);
+        repository.save(theme);
 
     }
+
+    public List<Theme> getAllThemesByUserId(Long id) {
+        return repository.getAllByUserId(id);
+    }
+
 }

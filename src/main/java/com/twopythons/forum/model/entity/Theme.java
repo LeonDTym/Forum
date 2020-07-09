@@ -24,7 +24,7 @@ public class Theme extends AbstractEntity {
 
     @OneToMany(mappedBy = "theme")
     private Collection<Message> messages;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tagged",
                 joinColumns = @JoinColumn(name = "theme_id"),
                 inverseJoinColumns = @JoinColumn(name = "tag_id"))

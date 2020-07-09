@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MessageServiceImpl extends ServiceCommonImpl<Message, MessageRepository> {
+
     @Autowired
     public MessageServiceImpl(MessageRepository repository) {
         super(repository);
     }
+
 }
