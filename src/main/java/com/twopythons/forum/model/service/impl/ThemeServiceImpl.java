@@ -38,6 +38,13 @@ public class ThemeServiceImpl extends ServiceCommonImpl<Theme, ThemeRepository> 
 
     }
 
+    public void removeTag(Theme theme, String tagTitle) {
+
+        theme.getTags().removeIf(tag -> tag.getName().equals(tagTitle));
+        repository.save(theme);
+
+    }
+
     public List<Theme> getAllThemesByUserId(Long id) {
         return repository.getAllByUserId(id);
     }
