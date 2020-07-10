@@ -27,8 +27,8 @@ public class UserServiceImplTest {
             user.setPassword(newPassword);
             user.setLogin(newLogin);
             userService.update(user);
-            Assert.assertEquals(newPassword, userService.getById(1L).get().getPassword());
-            Assert.assertEquals(newLogin, userService.getById(1L).get().getLogin());
+            Assert.assertEquals(newPassword, userService.getById(1L).orElse(new User()).getPassword());
+            Assert.assertEquals(newLogin, userService.getById(1L).orElse(new User()).getLogin());
         });
 
     }
@@ -39,12 +39,12 @@ public class UserServiceImplTest {
         Boolean isBanned;
 
         userService.banById(1L);
-        isBanned = userService.getById(1L).get().getIsBanned();
+        isBanned = userService.getById(1L).orElse(new User()).getIsBanned();
 
         Assert.assertEquals(true, isBanned);
 
         userService.unbanById(1L);
-        isBanned = userService.getById(1L).get().getIsBanned();
+        isBanned = userService.getById(1L).orElse(new User()).getIsBanned();
 
         Assert.assertEquals(false, isBanned);
 

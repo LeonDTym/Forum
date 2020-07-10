@@ -20,7 +20,7 @@ public class Message extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "replied_message_id")
     private Message repliedTo;
-    @OneToMany
+    @OneToMany(mappedBy = "repliedTo", fetch = FetchType.EAGER)
     private Collection<Message> repliedBy;
     private Calendar date;
     private int rating;

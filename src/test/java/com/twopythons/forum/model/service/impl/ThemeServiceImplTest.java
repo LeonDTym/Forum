@@ -50,5 +50,6 @@ class ThemeServiceImplTest {
             themeService.addTag(theme, tagTitle);
             Assert.assertTrue(theme.getTags().stream().anyMatch(tag -> tag.getName().equals(tagTitle)));
         });
+
     }
 }

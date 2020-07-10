@@ -13,4 +13,12 @@ public class MessageServiceImpl extends ServiceCommonImpl<Message, MessageReposi
         super(repository);
     }
 
+    public void reply(Message question, Message answer) {
+
+        question.getRepliedBy().add(answer);
+        answer.setRepliedTo(question);
+        repository.save(question);
+        repository.save(answer);
+
+    }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class ThemeServiceImpl extends ServiceCommonImpl<Theme, ThemeRepository> {
 
-    private TagServiceImpl tagService;
+    private final TagServiceImpl tagService;
 
     @Autowired
     public ThemeServiceImpl(ThemeRepository repository, TagServiceImpl tagService) {
