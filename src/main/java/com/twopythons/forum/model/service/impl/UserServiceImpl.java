@@ -21,17 +21,19 @@ public class UserServiceImpl extends ServiceCommonImpl<User, UserRepository> {
 
     @Transactional
     public void changeRole(Long id, Role newRole) {
-        getById(id).ifPresent(user -> user.setRole(newRole));
+        //TODO нормальные роли
     }
 
-    @Transactional
-    public void banById(Long id) {
-        getById(id).ifPresent(user -> user.setIsBanned(true));
-    }
+//TODO update user ban methods
 
-    @Transactional
-    public void unbanById(Long id) {
-        getById(id).ifPresent(user -> user.setIsBanned(false));
-    }
+//    @Transactional
+//    public void banById(Long id) {
+//        getById(id).ifPresent(user -> user.setIsBanned(true));
+//    }
+//
+//    @Transactional
+//    public void unbanById(Long id) {
+//        getById(id).ifPresent(user -> user.setIsBanned(false));
+//    }
 
 }
