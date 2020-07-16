@@ -17,6 +17,8 @@ public class User extends AbstractEntity implements UserDetails {
     private String password;
     private String email;
     private byte[] picture;
+    private boolean isNonLocked = true;
+
     @OneToMany(mappedBy = "user")
     private Collection<Theme> themes;
     @OneToMany(mappedBy = "author")
@@ -41,7 +43,7 @@ public class User extends AbstractEntity implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return isNonLocked;
     }
 
     @Override

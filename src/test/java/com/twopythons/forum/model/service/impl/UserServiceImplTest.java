@@ -32,36 +32,40 @@ public class UserServiceImplTest {
 
     }
 
-//TODO fix it
+    @Test
+    public void banUnbanById() {
 
-//    @Test
-//    public void banUnbanById() {
-//
-//        Boolean isBanned;
-//
-//        userService.banById(1L);
-//        isBanned = userService.getById(1L).orElse(new User()).getIsBanned();
-//
-//        Assert.assertEquals(true, isBanned);
-//
-//        userService.unbanById(1L);
-//        isBanned = userService.getById(1L).orElse(new User()).getIsBanned();
-//
-//        Assert.assertEquals(false, isBanned);
-//
-//    }
-//
-//    @Test
-//    public void changeRole() {
-//
-//        Role newRole = Role.Admin;
-//        Long id = 1L;
-//
-//        userService.changeRole(id, newRole);
-//        User user = userService.getById(id).orElse(new User());
-//
-//        Assert.assertEquals(newRole, user.getRole());
-//
-//    }
+        Boolean notBanned;
+
+        userService.banById(1L);
+        notBanned = userService.getById(1L).orElse(new User()).isAccountNonLocked();
+
+        Assert.assertEquals(false, notBanned);
+
+        userService.unbanById(1L);
+        notBanned = userService.getById(1L).orElse(new User()).isAccountNonLocked();
+
+        Assert.assertEquals(true, notBanned);
+
+    }
+
+    @Test
+    public void changeRoles() {
+
+        Long id = 1L;
+
+        userService.addRole(1L, "ROLE_GUEST");
+        userService.addRole(1L, "ROLE_USER");
+        userService.addRole(1L, "ROLE_ADMIN");
+
+        User user = userService.getById(id).orElse(new User());
+        Assert.assertEquals(3, user.getRoles().size());
+
+        userService.removeRole(1L, "ROLE_ADMIN");
+
+        user = userService.getById(id).orElse(new User());
+        Assert.assertEquals(2, user.getRoles().size());
+
+    }
 
 }
