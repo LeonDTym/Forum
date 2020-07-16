@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
@@ -17,12 +18,15 @@ public class UserServiceImplTest {
     @Autowired
     private UserServiceImpl userService;
 
+    @Autowired
+    private BCryptPasswordEncoder encoder;
+
     @Test
     public void update() {
 
         userService.getById(1L).ifPresent(user -> {
             String newPassword = "87654321";
-            String newLogin = "whatislove";
+            String newLogin = "whatisluve";
             user.setPassword(newPassword);
             user.setLogin(newLogin);
             userService.update(user);

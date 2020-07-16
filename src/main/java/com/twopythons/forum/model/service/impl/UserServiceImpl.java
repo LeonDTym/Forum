@@ -34,6 +34,14 @@ public class UserServiceImpl extends ServiceCommonImpl<User, UserRepository> imp
     }
 
     @Override
+    public void create(User user) {
+
+        user.setPassword(encoder.encode(user.getPassword()));
+        super.create(user);
+
+    }
+
+    @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
         User user = repository.findByLogin(s);
