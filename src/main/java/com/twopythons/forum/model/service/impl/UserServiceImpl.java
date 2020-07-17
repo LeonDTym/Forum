@@ -79,4 +79,12 @@ public class UserServiceImpl extends ServiceCommonImpl<User, UserRepository> imp
         getById(id).ifPresent(user -> user.setNonLocked(true));
     }
 
+    public void updatePassword(Long id, String newPassword) {
+
+        getById(id).ifPresent(user -> {
+            user.setPassword(encoder.encode(newPassword));
+            update(user);
+        });
+
+    }
 }
