@@ -10,6 +10,6 @@ public class TagDto extends AbstractDto {
 
     @Pattern(regexp = "\\W(\\#[a-zA-Z]+\\b)(?!;)")
     private String name;
-    private Collection<ThemeDto> themesId;
+    private Collection<Long> themes;
 
 }

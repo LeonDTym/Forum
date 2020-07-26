@@ -1,6 +1,5 @@
 package com.twopythons.forum.model.dto;
 
-import com.twopythons.forum.model.entity.enums.ThemeState;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -20,7 +19,7 @@ public class ThemeDto extends AbstractDto {
     @PastOrPresent
     private Calendar date;
     @NotNull
-    private ThemeState themeState;
+    private String themeState;
     private int rating;
 
     private Collection<Long> messagesId;
