@@ -1,6 +1,7 @@
 package com.twopythons.forum.model.entity;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,6 +10,7 @@ import java.util.Collection;
 import java.util.Set;
 
 @Data
+@EqualsAndHashCode(exclude = {"downvotedMessages", "upvotedMessages", "downvotedThemes", "upvotedThemes"}, callSuper = false)
 @Entity
 @Table(name = "user")
 public class User extends AbstractEntity implements UserDetails {

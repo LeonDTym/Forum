@@ -25,4 +25,5 @@ class MessageServiceImplTest {
         Assert.assertEquals(1L, (long) messageService.getById(2L).orElse(new Message()).getRepliedTo().getId());
 
     }
+
 }

@@ -4,9 +4,7 @@ import com.twopythons.forum.model.dto.MessageDto;
 import com.twopythons.forum.model.entity.Message;
 import com.twopythons.forum.model.entity.Theme;
 import com.twopythons.forum.model.entity.User;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
+import org.mapstruct.*;
 
 @Mapper(componentModel = "spring")
 public interface MessageMapper extends CommonMapper<Message, MessageDto> {
@@ -39,5 +37,10 @@ public interface MessageMapper extends CommonMapper<Message, MessageDto> {
 
     }
 
+
+    @AfterMapping
+    default void after(@MappingTarget MessageDto dto, Message message) {
+        dto.setRating(message.getUpvotes().size() - message.getDownvotes().size());
+    }
 
 }
