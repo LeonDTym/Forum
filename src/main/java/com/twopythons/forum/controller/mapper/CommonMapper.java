@@ -2,9 +2,11 @@ package com.twopythons.forum.controller.mapper;
 
 import com.twopythons.forum.model.dto.AbstractDto;
 import com.twopythons.forum.model.entity.AbstractEntity;
+import org.mapstruct.Named;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public interface CommonMapper<E extends AbstractEntity, D extends AbstractDto> {
 
@@ -28,5 +30,7 @@ public interface CommonMapper<E extends AbstractEntity, D extends AbstractDto> {
         return dtos;
     }
 
+    @Named("getIdOfEntity")
+    default <T extends AbstractEntity> Long getIdOfEntity(T entity) { return entity.getId(); }
 
 }
