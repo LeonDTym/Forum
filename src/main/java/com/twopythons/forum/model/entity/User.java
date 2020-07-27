@@ -26,6 +26,15 @@ public class User extends AbstractEntity implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles;
 
+    @ManyToMany
+    private Set<Message> upvotedMessages;
+    @ManyToMany
+    private Set<Message> downvotedMessages;
+    @ManyToMany
+    private Set<Theme> upvotedThemes;
+    @ManyToMany
+    private Set<Theme> downvotedThemes;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Set;
 
 @Data
 @Entity
@@ -23,7 +24,11 @@ public class Message extends AbstractEntity {
     @OneToMany(mappedBy = "repliedTo", fetch = FetchType.EAGER)
     private Collection<Message> repliedBy;
     private Calendar date;
-    private int rating;
     private String text;
+
+    @ManyToMany(mappedBy = "upvotedMessages")
+    private Set<User> upvotes;
+    @ManyToMany(mappedBy = "downvotedMessages")
+    private Set<User> downvotes;
 
 }

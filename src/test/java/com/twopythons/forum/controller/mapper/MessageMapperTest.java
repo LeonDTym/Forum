@@ -3,7 +3,6 @@ package com.twopythons.forum.controller.mapper;
 import com.twopythons.forum.ForumApplication;
 import com.twopythons.forum.model.dto.MessageDto;
 import com.twopythons.forum.model.entity.Message;
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,6 @@ class MessageMapperTest {
     MessageMapper messageMapper;
 
     @Test
-    @SneakyThrows
     public void dtoToEntity() {
 
         MessageDto dto = new MessageDto();

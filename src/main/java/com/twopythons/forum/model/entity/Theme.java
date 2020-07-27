@@ -6,6 +6,7 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Set;
 
 @Data
 @Entity
@@ -20,7 +21,6 @@ public class Theme extends AbstractEntity {
     private Calendar date;
     @Enumerated(EnumType.ORDINAL)
     private ThemeState state;
-    private int rating;
 
     @OneToMany(mappedBy = "theme")
     private Collection<Message> messages;
@@ -29,5 +29,10 @@ public class Theme extends AbstractEntity {
                 joinColumns = @JoinColumn(name = "theme_id"),
                 inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Collection<Tag> tags;
+
+    @ManyToMany(mappedBy = "upvotedThemes")
+    private Set<User> upvotes;
+    @ManyToMany(mappedBy = "downvotedThemes")
+    private Set<User> downvotes;
 
 }
