@@ -13,11 +13,15 @@ public interface MessageMapper extends CommonMapper<Message, MessageDto> {
     @Override
     @Mapping(source = "theme", target = "themeId", qualifiedByName = "getIdOfEntity")
     @Mapping(source = "author", target = "authorId", qualifiedByName = "getIdOfEntity")
+    @Mapping(source = "repliedTo", target = "repliedToMessageId", qualifiedByName = "getIdOfEntity")
+    @Mapping(source = "repliedBy", target = "repliedByMessagesId", qualifiedByName = "getIdOfEntity")
     MessageDto entityToDto(Message entity);
 
     @Override
     @Mapping(source = "themeId", target = "theme", qualifiedByName = "getThemeById")
     @Mapping(source = "authorId", target = "author", qualifiedByName = "getUserById")
+    @Mapping(source = "repliedToMessageId", target = "repliedTo", qualifiedByName = "getMessageById")
+    @Mapping(source = "repliedByMessagesId", target = "repliedBy", qualifiedByName = "getMessageById")
     Message dtoToEntity(MessageDto dto);
 
 

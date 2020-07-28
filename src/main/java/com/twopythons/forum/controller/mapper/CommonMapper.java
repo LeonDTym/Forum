@@ -31,7 +31,15 @@ public interface CommonMapper<E extends AbstractEntity, D extends AbstractDto> {
     }
 
     @Named("getIdOfEntity")
-    default <T extends AbstractEntity> Long getIdOfEntity(T entity) { return entity.getId(); }
+    default <T extends AbstractEntity> Long getIdOfEntity(T entity)
+    {
+        if
+        (entity == null) {
+            return null;
+        }
+
+        return entity.getId();
+    }
 
     @Named("getUserById")
     default User getAuthorById(Long id) {
