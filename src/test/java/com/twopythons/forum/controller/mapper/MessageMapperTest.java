@@ -3,13 +3,11 @@ package com.twopythons.forum.controller.mapper;
 import com.twopythons.forum.model.dto.MessageDto;
 import com.twopythons.forum.model.entity.Message;
 import com.twopythons.forum.model.service.impl.MessageServiceImpl;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.GregorianCalendar;
 
@@ -38,14 +36,4 @@ class MessageMapperTest {
 
     }
 
-    @Test
-    @Transactional
-    public void ratingMapping() {
-
-        service.getById(1L).ifPresent(message -> {
-            MessageDto dto = messageMapper.entityToDto(message);
-            Assert.assertEquals(-2, dto.getRating());
-        });
-
-    }
 }
