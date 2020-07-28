@@ -1,7 +1,7 @@
 package com.twopythons.forum.controller.mapper;
 
 import com.twopythons.forum.model.dto.AbstractDto;
-import com.twopythons.forum.model.entity.AbstractEntity;
+import com.twopythons.forum.model.entity.*;
 import org.mapstruct.Named;
 
 import java.util.ArrayList;
@@ -32,5 +32,41 @@ public interface CommonMapper<E extends AbstractEntity, D extends AbstractDto> {
 
     @Named("getIdOfEntity")
     default <T extends AbstractEntity> Long getIdOfEntity(T entity) { return entity.getId(); }
+
+    @Named("getUserById")
+    default User getAuthorById(Long id) {
+
+        User author = new User();
+        author.setId(id);
+        return author;
+
+    }
+
+    @Named("getThemeById")
+    default Theme getThemeById(Long id) {
+
+        Theme theme = new Theme();
+        theme.setId(id);
+        return theme;
+
+    }
+
+    @Named("getMessageById")
+    default Message getMessageById(Long id) {
+
+        Message message = new Message();
+        message.setId(id);
+        return message;
+
+    }
+
+    @Named("getTagById")
+    default Tag getTagById(Long id) {
+
+        Tag tag = new Tag();
+        tag.setId(id);
+        return tag;
+
+    }
 
 }

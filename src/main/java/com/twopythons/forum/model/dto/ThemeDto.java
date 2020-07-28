@@ -19,7 +19,7 @@ public class ThemeDto extends AbstractDto {
     @PastOrPresent
     private Calendar date;
     @NotNull
-    private String themeState;
+    private String state;
     private int rating;
 
     private Collection<Long> messagesId;

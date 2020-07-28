@@ -2,9 +2,10 @@ package com.twopythons.forum.controller.mapper;
 
 import com.twopythons.forum.model.dto.MessageDto;
 import com.twopythons.forum.model.entity.Message;
-import com.twopythons.forum.model.entity.Theme;
-import com.twopythons.forum.model.entity.User;
-import org.mapstruct.*;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface MessageMapper extends CommonMapper<Message, MessageDto> {
@@ -16,26 +17,10 @@ public interface MessageMapper extends CommonMapper<Message, MessageDto> {
 
     @Override
     @Mapping(source = "themeId", target = "theme", qualifiedByName = "getThemeById")
-    @Mapping(source = "authorId", target = "author", qualifiedByName = "getAuthorById")
+    @Mapping(source = "authorId", target = "author", qualifiedByName = "getUserById")
     Message dtoToEntity(MessageDto dto);
 
-    @Named("getAuthorById")
-    default User getAuthorById(Long id) {
 
-        User author = new User();
-        author.setId(id);
-        return author;
-
-    }
-
-    @Named("getThemeById")
-    default Theme getThemeById(Long id) {
-
-        Theme theme = new Theme();
-        theme.setId(id);
-        return theme;
-
-    }
 
 
     @AfterMapping
