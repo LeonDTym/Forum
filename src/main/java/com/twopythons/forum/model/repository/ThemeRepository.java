@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ThemeRepository extends JpaRepository<Theme, Long> {
 
-    @Query("select t from Theme t where t.user.id = :id")
+    @Query("select t from Theme t where t.author.id = :id")
     List<Theme> getAllByUserId(Long id);
 
 }

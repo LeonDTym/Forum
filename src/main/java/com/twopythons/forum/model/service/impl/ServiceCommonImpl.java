@@ -2,7 +2,6 @@ package com.twopythons.forum.model.service.impl;
 
 import com.twopythons.forum.model.entity.AbstractEntity;
 import com.twopythons.forum.model.service.Service;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -12,7 +11,6 @@ public class ServiceCommonImpl<E extends AbstractEntity, R extends JpaRepository
 
     final protected R repository;
 
-    @Autowired
     public ServiceCommonImpl(R repository) {
         this.repository = repository;
     }

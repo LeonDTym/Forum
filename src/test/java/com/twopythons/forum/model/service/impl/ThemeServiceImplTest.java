@@ -35,4 +35,21 @@ class ThemeServiceImplTest {
         Assert.assertEquals("python", theme.getTitle());
 
     }
+
+    @Test
+    void addRemoveTag() {
+
+        String tagTitle = "Programming";
+
+        themeService.getById(1L).ifPresent(theme -> {
+            themeService.removeTag(theme, tagTitle);
+            Assert.assertFalse(theme.getTags().stream().anyMatch(tag -> tag.getName().equals(tagTitle)));
+        });
+
+        themeService.getById(1L).ifPresent(theme -> {
+            themeService.addTag(theme, tagTitle);
+            Assert.assertTrue(theme.getTags().stream().anyMatch(tag -> tag.getName().equals(tagTitle)));
+        });
+
+    }
 }
