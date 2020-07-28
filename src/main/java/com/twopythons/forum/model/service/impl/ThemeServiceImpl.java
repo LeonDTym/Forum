@@ -4,6 +4,7 @@ import com.twopythons.forum.model.entity.Tag;
 import com.twopythons.forum.model.entity.Theme;
 import com.twopythons.forum.model.entity.enums.ThemeState;
 import com.twopythons.forum.model.repository.ThemeRepository;
+import com.twopythons.forum.model.service.Voteable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,15 +12,17 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class ThemeServiceImpl extends ServiceCommonImpl<Theme, ThemeRepository> {
+public class ThemeServiceImpl extends ServiceCommonImpl<Theme, ThemeRepository> implements Voteable {
 
     private final TagServiceImpl tagService;
+    private final UserServiceImpl userService;
 
     @Autowired
-    public ThemeServiceImpl(ThemeRepository repository, TagServiceImpl tagService) {
+    public ThemeServiceImpl(ThemeRepository repository, TagServiceImpl tagService, UserServiceImpl userService) {
 
         super(repository);
         this.tagService = tagService;
+        this.userService = userService;
 
     }
 
@@ -49,4 +52,70 @@ public class ThemeServiceImpl extends ServiceCommonImpl<Theme, ThemeRepository> 
         return repository.getAllByUserId(id);
     }
 
+    @Override
+    public void upvote(Long themeId, Long userId) {
+
+        getById(themeId).ifPresent(theme -> {
+
+            if(theme.getUser().getId().equals(userId)) {
+                return;
+            }
+
+            if(theme.getUpvotes().stream().anyMatch(user -> user.getId().equals(userId))) {
+
+                theme.getUpvotes().removeIf(user -> user.getId().equals(userId));
+                repository.save(theme);
+                return;
+            }
+
+            if(theme.getDownvotes().stream().anyMatch(user -> user.getId().equals(userId))) {
+
+                theme.getDownvotes().removeIf(user -> user.getId().equals(userId));
+
+            }
+
+            userService.getById(userId).ifPresent(user -> {
+
+                theme.getUpvotes().add(user);
+
+            });
+
+            repository.save(theme);
+
+        });
+    }
+
+    @Override
+    public void downvote(Long themeId, Long userId) {
+
+        getById(themeId).ifPresent(theme -> {
+
+            if(theme.getUser().getId().equals(userId)) {
+                return;
+            }
+
+            if(theme.getDownvotes().stream().anyMatch(user -> user.getId().equals(userId))) {
+
+                theme.getDownvotes().removeIf(user -> user.getId().equals(userId));
+                repository.save(theme);
+                return;
+            }
+
+            if(theme.getUpvotes().stream().anyMatch(user -> user.getId().equals(userId))) {
+
+                theme.getUpvotes().removeIf(user -> user.getId().equals(userId));
+
+            }
+
+            userService.getById(userId).ifPresent(user -> {
+
+                theme.getDownvotes().add(user);
+
+            });
+
+            repository.save(theme);
+
+        });
+
+    }
 }

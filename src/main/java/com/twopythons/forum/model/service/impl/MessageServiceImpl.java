@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MessageServiceImpl extends ServiceCommonImpl<Message, MessageRepository> implements Voteable {
 
-    private UserServiceImpl userService;
+    private final UserServiceImpl userService;
 
     @Autowired
     public MessageServiceImpl(MessageRepository repository, UserServiceImpl userService) {
