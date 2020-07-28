@@ -21,7 +21,7 @@ public class User extends AbstractEntity implements UserDetails {
     private byte[] picture;
     private boolean isNonLocked = true;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "author")
     private Collection<Theme> themes;
     @OneToMany(mappedBy = "author")
     private Collection<Message> sentMessages;

@@ -57,7 +57,7 @@ public class ThemeServiceImpl extends ServiceCommonImpl<Theme, ThemeRepository> 
 
         getById(themeId).ifPresent(theme -> {
 
-            if(theme.getUser().getId().equals(userId)) {
+            if(theme.getAuthor().getId().equals(userId)) {
                 return;
             }
 
@@ -90,7 +90,7 @@ public class ThemeServiceImpl extends ServiceCommonImpl<Theme, ThemeRepository> 
 
         getById(themeId).ifPresent(theme -> {
 
-            if(theme.getUser().getId().equals(userId)) {
+            if(theme.getAuthor().getId().equals(userId)) {
                 return;
             }
 

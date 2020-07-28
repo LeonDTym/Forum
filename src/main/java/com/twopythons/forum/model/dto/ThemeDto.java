@@ -11,7 +11,7 @@ import java.util.Collection;
 @Data
 public class ThemeDto extends AbstractDto {
 
-    private Long userId;
+    private Long authorId;
     @Size(min = 1, max = 255)
     private String title;
     @Size(max = 65536)

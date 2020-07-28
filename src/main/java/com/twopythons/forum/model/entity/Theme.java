@@ -15,7 +15,7 @@ public class Theme extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private User author;
     private String title;
     private String description;
     private Calendar date;
