@@ -8,17 +8,13 @@
             android:id="@+id/nav_account2"
             android:icon="@drawable/ic_user"
             android:title="@string/menu_account" />
-<item
-    android:id="@+id/nav_account"
-    android:icon="@drawable/ic_menu_camera"
-    android:title="@string/menu_account"
-    />
+
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/home"
             android:title="@string/menu_home" />
         <item
-            android:id="@+id/nav_topic"
+            android:id="@+id/nav_topic2"
             android:icon="@drawable/chat"
             android:title="@string/menu_topic" />
         <item
