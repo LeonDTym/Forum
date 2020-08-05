@@ -28,6 +28,12 @@
         <activity android:name=".ui.account.Account"
             android:label="@string/menu_account"/>
 
+
+        <activity android:name=".ui.topic.Topic"
+    android:label="@string/menu_topic"/>
+
+
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
