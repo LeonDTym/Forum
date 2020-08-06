@@ -6,6 +6,9 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
     defaultConfig {
         applicationId "com.example.forumdisigin"
         minSdkVersion 16
@@ -22,7 +25,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    useLibrary  'org.apache.http.legacy'
 // To inline the bytecode built with JVM target 1.8 into
 // bytecode that is being built with JVM target 1.6. (e.g. navArgs)
 
@@ -38,6 +41,11 @@ android {
 }
 
 dependencies {
+    //noinspection DuplicatePlatformClasses
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.6'
+    implementation "org.springframework.android:spring-android-rest-template:1.0.1.RELEASE"
+    implementation "org.springframework.android:spring-android-auth:1.0.1.RELEASE"
+    implementation "org.springframework.android:spring-android-core:1.0.1.RELEASE"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
