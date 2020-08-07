@@ -1,23 +1,21 @@
 package com.example.forumdisigin.data.model;
 
-import com.example.forumdisigin.data.model.dto.MessageDto;
-import com.example.forumdisigin.data.model.dto.TagDto;
-import com.example.forumdisigin.data.model.dto.ThemeDto;
 import com.example.forumdisigin.data.model.dto.UserDto;
+import com.example.forumdisigin.data.model.httpmanager.HttpManager;
+import com.example.forumdisigin.data.model.httpmanager.UserManager;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class HttpManagerTest {
 
     @Test
-    public void tryMethod() {
+    public void tryMethod() throws JsonProcessingException, ClassNotFoundException {
 
-        HttpManager manager = new HttpManager();
+        UserManager manager = new UserManager();
 
-        UserDto userDto = manager.getAll(UserDto[].class)[0];
-
+ //       UserDto userDto = manager.getAll().stream().findFirst().orElse(new UserDto());
+        UserDto userDto = manager.getById(4L);
         System.out.println("username " + userDto.getLogin() + " email " + userDto.getEmail());
 
 
