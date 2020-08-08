@@ -28,8 +28,7 @@ public class HttpManagerTest {
         userDto.setEmail("mailmymail@gmail.com");
         userDto.setLogin("vasya322");
         userDto.setPassword("notvasyaincase");
-        userDto.setId(null);
-        manager.add(userDto);
+        System.out.println(manager.add(userDto));
 
     }
 }

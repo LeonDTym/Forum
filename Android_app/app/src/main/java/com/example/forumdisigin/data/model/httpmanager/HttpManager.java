@@ -6,6 +6,7 @@ import androidx.annotation.RequiresApi;
 
 import com.example.forumdisigin.data.model.dto.AbstractDto;
 import com.example.forumdisigin.data.model.dto.UserDto;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -13,7 +14,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -24,6 +27,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES;
 
 public abstract class HttpManager<T extends AbstractDto> {
 
@@ -61,23 +66,18 @@ public abstract class HttpManager<T extends AbstractDto> {
 
     }
 
-    public boolean add(T item) throws JsonProcessingException {
+    public int add(T item) {
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String json = objectMapper.writeValueAsString(item);
-
+        item.setId(null);
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJacksonHttpMessageConverter());
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> request = new HttpEntity<String>(json, headers);
+        HttpEntity<T> entity = new HttpEntity<>(item);
 
-        System.out.println(request);
-        String personResultAsJsonStr = restTemplate.postForObject(serverUrl + nameFromType(item.getClass()) + "/add", request, String.class);
+        String url = serverUrl + nameFromType(item.getClass()) + "/add";
+        ResponseEntity<? extends AbstractDto> response = restTemplate.exchange(url, HttpMethod.POST, entity, item.getClass());
 
-        System.out.println(personResultAsJsonStr);
+        return response.getStatusCode().value();
 
-        return true;
     }
 
     private String nameFromType(Type type) {
