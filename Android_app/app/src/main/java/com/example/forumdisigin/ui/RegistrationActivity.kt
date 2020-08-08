@@ -1,14 +1,13 @@
 package com.example.forumdisigin.ui
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import com.example.forumdisigin.ui.login.LoginActivity
 import android.widget.EditText
 import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
 import com.example.forumdisigin.R
-
+import com.example.forumdisigin.ui.login.LoginActivity
 
 
 class RegistrationActivity : AppCompatActivity() {
@@ -24,8 +23,8 @@ class RegistrationActivity : AppCompatActivity() {
         val login = findViewById<Button>(R.id.login)
         val loading = findViewById<ProgressBar>(R.id.loading)
 
-        if( firstName.getText().toString().length == null )
-            firstName.setError( "First name is required!" )
+        if( firstName.text.toString().length == null )
+            firstName.error = "First name is required!"
 
     }
 
