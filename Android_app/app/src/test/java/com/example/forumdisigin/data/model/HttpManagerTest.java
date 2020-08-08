@@ -1,5 +1,10 @@
 package com.example.forumdisigin.data.model;
 
+import android.app.Application;
+import android.content.res.Resources;
+import android.provider.Settings;
+
+import com.example.forumdisigin.R;
 import com.example.forumdisigin.data.model.dto.UserDto;
 import com.example.forumdisigin.data.model.httpmanager.HttpManager;
 import com.example.forumdisigin.data.model.httpmanager.UserManager;
@@ -15,9 +20,16 @@ public class HttpManagerTest {
         UserManager manager = new UserManager();
 
  //       UserDto userDto = manager.getAll().stream().findFirst().orElse(new UserDto());
-        UserDto userDto = manager.getById(4L);
-        System.out.println("username " + userDto.getLogin() + " email " + userDto.getEmail());
 
+
+        UserDto userDto = manager.getById(7L);
+        System.out.println("username: " + userDto.getLogin() + "; email: " + userDto.getEmail() + "; id: " + userDto.getId());
+
+        userDto.setEmail("mailmymail@gmail.com");
+        userDto.setLogin("vasya322");
+        userDto.setPassword("notvasyaincase");
+        userDto.setId(null);
+        manager.add(userDto);
 
     }
 }

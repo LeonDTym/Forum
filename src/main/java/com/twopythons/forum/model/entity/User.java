@@ -2,6 +2,7 @@ package com.twopythons.forum.model.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -25,7 +26,7 @@ public class User extends AbstractEntity implements UserDetails {
     private Collection<Theme> themes;
     @OneToMany(mappedBy = "author")
     private Collection<Message> sentMessages;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Role> roles;
 
     @ManyToMany

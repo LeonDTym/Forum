@@ -7,12 +7,15 @@ import androidx.annotation.RequiresApi;
 import com.example.forumdisigin.data.model.dto.AbstractDto;
 import com.example.forumdisigin.data.model.dto.UserDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
 import java.lang.reflect.Array;
@@ -24,13 +27,14 @@ import java.util.List;
 
 public abstract class HttpManager<T extends AbstractDto> {
 
+    public static String serverUrl = "http://localhost:8080/";
 
     public List<T> getAll() throws ClassNotFoundException, JsonProcessingException {
 
         Type genericSuperclass = getClass().getGenericSuperclass();
         Type type = ((ParameterizedType)genericSuperclass).getActualTypeArguments()[ 0 ];
 
-        String url = "http://localhost:8080/" + nameFromType(type) + "/all";
+        String url = serverUrl + nameFromType(type) + "/all";
 
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
@@ -46,7 +50,7 @@ public abstract class HttpManager<T extends AbstractDto> {
         Type genericSuperclass = getClass().getGenericSuperclass();
         Type type = ((ParameterizedType)genericSuperclass).getActualTypeArguments()[ 0 ];
 
-        String url = "http://localhost:8080/" + nameFromType(type) + "/" + id.toString();
+        String url = serverUrl + nameFromType(type) + "/" + id.toString();
 
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
@@ -55,6 +59,25 @@ public abstract class HttpManager<T extends AbstractDto> {
         T dto =  new ObjectMapper().readValue(result, classByType(type));
         return dto;
 
+    }
+
+    public boolean add(T item) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = objectMapper.writeValueAsString(item);
+
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters().add(new MappingJacksonHttpMessageConverter());
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> request = new HttpEntity<String>(json, headers);
+
+        System.out.println(request);
+        String personResultAsJsonStr = restTemplate.postForObject(serverUrl + nameFromType(item.getClass()) + "/add", request, String.class);
+
+        System.out.println(personResultAsJsonStr);
+
+        return true;
     }
 
     private String nameFromType(Type type) {
