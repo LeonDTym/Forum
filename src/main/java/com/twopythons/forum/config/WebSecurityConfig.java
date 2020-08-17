@@ -1,7 +1,11 @@
 package com.twopythons.forum.config;
 
+import com.twopythons.forum.model.service.impl.UserServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -14,18 +18,15 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
+@EnableConfigurationProperties
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    public UserServiceImpl service;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Override
-    protected void configure(HttpSecurity security) throws Exception
-    {
-        security.httpBasic().disable();
-        security.cors().and().csrf().disable();
     }
 
     @Bean
@@ -39,4 +40,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+    @Override
+    protected void configure(HttpSecurity security) throws Exception
+    {
+        security.cors().and().csrf().disable();
+    }
+
+    @Override
+    public void configure(AuthenticationManagerBuilder builder)
+            throws Exception {
+        builder.userDetailsService(service);
+    }
+
 }

@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.lang.reflect.ParameterizedType;
@@ -60,7 +61,14 @@ public abstract class HttpManager<T extends AbstractDto> {
         HttpEntity<T> entity = new HttpEntity<>(item);
 
         String url = serverUrl + nameFromType(item.getClass()) + "/add";
-        ResponseEntity<? extends AbstractDto> response = restTemplate.exchange(url, HttpMethod.POST, entity, item.getClass());
+        ResponseEntity<? extends AbstractDto> response;
+
+        try {
+            response = restTemplate.exchange(url, HttpMethod.POST, entity, item.getClass());
+        }
+        catch (HttpClientErrorException e) {
+            return e.getStatusCode().value();
+        }
 
         return response.getStatusCode().value();
 

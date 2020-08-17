@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
@@ -39,7 +40,7 @@ class ThemeServiceImplTest {
     @Test
     void addRemoveTag() {
 
-        String tagTitle = "Programming";
+        String tagTitle = "#Programming";
 
         themeService.getById(1L).ifPresent(theme -> {
             themeService.removeTag(theme, tagTitle);
@@ -51,5 +52,58 @@ class ThemeServiceImplTest {
             Assert.assertTrue(theme.getTags().stream().anyMatch(tag -> tag.getName().equals(tagTitle)));
         });
 
+    }
+
+    @Test
+    void findAllByTitle() {
+
+        String themeTitle = "python";
+
+        themeService.findAllByTitle(themeTitle, PageRequest.of(0, 10))
+                .stream()
+                .findFirst()
+                .ifPresent(theme -> {
+                    Assert.assertEquals(themeTitle, theme.getTitle());
+                });
+
+        themeService.findAllByTitle("pyth", PageRequest.of(0, 10))
+                .stream()
+                .findFirst()
+                .ifPresent(theme -> {
+                    Assert.assertEquals(themeTitle, theme.getTitle());
+                });
+
+        themeService.findAllByTitle("typon", PageRequest.of(0, 10))
+                .stream()
+                .findFirst()
+                .ifPresent(theme -> {
+                    Assert.assertNotEquals(themeTitle, theme.getTitle());
+                });
+
+    }
+
+    @Test
+    public void findByTag() {
+
+        String themeTitle = "python";
+
+        themeService.findByTag("#Programming", PageRequest.of(0, 10))
+                .stream()
+                .findFirst()
+                .ifPresent(theme -> {
+                    Assert.assertEquals(themeTitle, theme.getTitle());
+                });
+        themeService.findByTag("#python", PageRequest.of(0, 10))
+                .stream()
+                .findFirst()
+                .ifPresent(theme -> {
+                    Assert.assertEquals(themeTitle, theme.getTitle());
+                });
+        themeService.findByTag("#a", PageRequest.of(0, 10))
+                .stream()
+                .findFirst()
+                .ifPresent(theme -> {
+                    Assert.assertNotEquals(themeTitle, theme.getTitle());
+                });
     }
 }
