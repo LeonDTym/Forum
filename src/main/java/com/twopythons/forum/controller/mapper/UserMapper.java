@@ -1,11 +1,14 @@
 package com.twopythons.forum.controller.mapper;
 
+import com.twopythons.forum.model.dto.MessageDto;
 import com.twopythons.forum.model.dto.UserDto;
+import com.twopythons.forum.model.entity.Message;
 import com.twopythons.forum.model.entity.Role;
 import com.twopythons.forum.model.entity.User;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Named;
+import com.twopythons.forum.model.repository.RoleRepository;
+import com.twopythons.forum.model.service.impl.UserServiceImpl;
+import org.mapstruct.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper extends CommonMapper<User, UserDto> {
@@ -19,7 +22,7 @@ public interface UserMapper extends CommonMapper<User, UserDto> {
     @Override
     @Mapping(source = "messagesId", target = "sentMessages", qualifiedByName = "getMessageById")
     @Mapping(source = "themesId", target = "themes", qualifiedByName = "getThemeById")
-    @Mapping(source = "roles", target = "roles", qualifiedByName = "getRoleByName")
+    @Mapping(target = "roles", ignore = true)
     User dtoToEntity(UserDto dto);
 
     @Named("getRoleByName")

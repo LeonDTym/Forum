@@ -10,7 +10,7 @@ import java.util.Collection;
 @Data
 public class TagDto extends AbstractDto {
 
-    @Pattern(regexp = "\\W(#[a-zA-Z]+\\b)(?!;)")
+    @Pattern(regexp = "(?:\\s|^)#[A-Za-z0-9\\-\\.\\_]+(?:\\s|$)")
     private String name;
     private Collection<Long> themesId;
 

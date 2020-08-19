@@ -6,6 +6,7 @@ import com.twopythons.forum.model.entity.enums.ThemeState;
 import com.twopythons.forum.model.repository.ThemeRepository;
 import com.twopythons.forum.model.service.Voteable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -109,5 +110,13 @@ public class ThemeServiceImpl extends ServiceCommonImpl<Theme, ThemeRepository> 
 
         });
 
+    }
+
+    public List<Theme> findAllByTitle(String title, Pageable pageable) {
+        return repository.findByTitle(title, pageable);
+    }
+
+    public List<Theme> findByTag(String tag, Pageable pageable) {
+        return repository.findByTag(tag, pageable);
     }
 }
