@@ -16,9 +16,9 @@ public class HttpManagerTest {
 
         HttpManager manager = new HttpManager();
 
-        UserDto userDto = manager.getAll(UserDto[].class)[0];
+        TagDto tagDto = manager.getAll(TagDto[].class)[1];
 
-        System.out.println("username " + userDto.getLogin() + " email " + userDto.getEmail());
+        System.out.println("id " + tagDto.getId() + " name " + tagDto.getName());
 
 
     }

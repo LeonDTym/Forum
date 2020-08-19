@@ -1,6 +1,7 @@
 package com.example.forumdisigin.data.model;
 
 import com.example.forumdisigin.data.model.dto.AbstractDto;
+import com.example.forumdisigin.data.model.dto.TagDto;
 import com.example.forumdisigin.data.model.dto.UserDto;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -30,5 +31,6 @@ public class HttpManager {
         return raw.substring(lastPoint + 1, startDto).toLowerCase().concat("s");
 
     }
+
 
 }
